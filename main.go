@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
 	// numbers to sort
-	sortme := []int{239, 2923, 119, 440, 20, 38, 48, 2201, 2938, 20, 11, 44, 55, 66, 33, 203, 22}
-	sortme2 := []int{239, 2923, 119, 440, 20, 38, 48, 2201, 2938, 20, 11, 44, 55, 66, 33, 203, 22}
+	sortme := randomSeq(10)
+	sortme2 := make([]int, len(sortme))
+	copy(sortme2, sortme)
 
 	fmt.Println("********************************")
 	fmt.Println("Sorted from: ")
@@ -18,10 +23,27 @@ func main() {
 	fmt.Println("--------------------------------")
 	fmt.Println("Sorted from: ")
 	fmt.Println(sortme2)
-	iterations = sortArr2(sortme2)
+	iterations2 := sortArr2(sortme2)
 	fmt.Println("To: ")
 	fmt.Println(sortme2)
-	fmt.Printf("In %d iterations\n", iterations)
+	fmt.Printf("In %d iterations\n", iterations2)
+	fmt.Printf("2 was quicker by %d iterations", (iterations - iterations2))
+}
+
+func randomSeq(len int) []int {
+	// create sequence
+	seq := make([]int, len)
+
+	// seed random number generator
+	rand.Seed(int64(time.Now().Nanosecond()))
+
+	// loop through
+	for i := 0; i < len; i++ {
+		seq[i] = rand.Intn(1000)
+	}
+
+	// return sequence
+	return seq
 }
 
 func sortArr(arr []int) int {
@@ -74,7 +96,7 @@ func sortArr2(arr []int) int {
 	// count iterations
 	iterations := 0
 
-	// current loop
+	// current loop position
 	position := 1
 
 	// loop through

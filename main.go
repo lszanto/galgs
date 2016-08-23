@@ -8,9 +8,11 @@ import (
 
 func main() {
 	// numbers to sort
-	sortme := randomSeq(10)
+	sortme := randomSeq(50)
 	sortme2 := make([]int, len(sortme))
+	sortme3 := make([]int, len(sortme))
 	copy(sortme2, sortme)
+	copy(sortme3, sortme)
 
 	fmt.Println("********************************")
 	fmt.Println("Sorted from: ")
@@ -27,7 +29,16 @@ func main() {
 	fmt.Println("To: ")
 	fmt.Println(sortme2)
 	fmt.Printf("In %d iterations\n", iterations2)
-	fmt.Printf("2 was quicker by %d iterations", (iterations - iterations2))
+	fmt.Printf("2 was quicker by %d iterations\n", (iterations - iterations2))
+
+	fmt.Println("--------------------------------")
+	fmt.Println("Sorted from: ")
+	fmt.Println(sortme3)
+	iterations3 := sortArr3(sortme3)
+	fmt.Println("To: ")
+	fmt.Println(sortme3)
+	fmt.Printf("In %d iterations\n", iterations3)
+	fmt.Printf("3 was quicker by %d iterations\n", (iterations - iterations3))
 }
 
 func randomSeq(len int) []int {
@@ -39,7 +50,7 @@ func randomSeq(len int) []int {
 
 	// loop through
 	for i := 0; i < len; i++ {
-		seq[i] = rand.Intn(1000)
+		seq[i] = rand.Intn(100)
 	}
 
 	// return sequence
@@ -132,6 +143,32 @@ func sortArr2(arr []int) int {
 
 		// move position on
 		position++
+	}
+
+	// return sorted
+	return iterations
+}
+
+func sortArr3(arr []int) int {
+	// count iterations
+	iterations := 0
+
+	// loop through sortme
+	for i := 1; i < len(arr); i++ {
+		// add an iteration
+		iterations++
+
+		// set positoin
+		currentValue := arr[i]
+		position := i
+
+		// loop through
+		for position > 0 && arr[position-1] > currentValue {
+			arr[position] = arr[position-1]
+			position--
+		}
+
+		arr[position] = currentValue
 	}
 
 	// return sorted

@@ -155,16 +155,19 @@ func sortArr3(arr []int) int {
 
 	// loop through sortme
 	for i := 1; i < len(arr); i++ {
-		// add an iteration
-		iterations++
-
-		// set positoin
+		// set position and grab first value to test
 		currentValue := arr[i]
 		position := i
 
 		// loop through
 		for position > 0 && arr[position-1] > currentValue {
+			// add an iteration
+			iterations++
+
+			// update positions
 			arr[position] = arr[position-1]
+
+			// current position moved back
 			position--
 		}
 
